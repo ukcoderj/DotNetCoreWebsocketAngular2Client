@@ -1,7 +1,9 @@
 # DotNetCoreWebsocketAngular2Client
 A simple .NET Core MVC WebSocket project with a simple angular2 websocket client (from angular2-seed)
 
-The client is from [Angular2-seed[(https://github.com/angular/angular2-seed), which details how to get that project running. The home page looks at an external websocket service. The about page looks at our MVC websocket handler.
+The client is from [Angular2-seed](https://github.com/angular/angular2-seed), which details how to get that project running. 
+
+*The home page looks at an external websocket service. The about page looks at our MVC websocket handler.*
 
 ### Usage (Server)
 
