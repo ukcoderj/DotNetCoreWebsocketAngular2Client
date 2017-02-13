@@ -31,7 +31,8 @@ The client is from [Angular2-seed](https://github.com/angular/angular2-seed), wh
 - cd to the project directory.
 - Run `ionic serve`
 
-####To test the APK, you will need to sign it.
+
+#### To test the Ionic2 APK, you will need to sign it.
 
 To create your key, use [these instructions](http://stackoverflow.com/a/15330139/852806)
 
@@ -43,8 +44,12 @@ cd "{ProjectDir}"
 `cordova build android --prod --release`
 
 `jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore "{ProjectDir}/platforms/android/build/outputs/apk/my-release-key.keystore" -storepass {KEY} -keypass {KEY} "{ProjectDir}/platforms/android/build/outputs/apk/android-release-unsigned.apk" {KEY}`
+
 `jarsigner -verify -verbose -certs "{ProjectDir}/platforms/android/build/outputs/apk/android-release-unsigned.apk"`
+
 cd to zipalign
+
 `cd C:/Program Files (x86)/Android/android-sdk/build-tools/23.0.1`
+
 `zipalign -v 4 "{ProjectDir}/platforms/android/build/outputs/apk/android-release-unsigned.apk" "{ProjectDir}/platforms/android/build/outputs/apk/android-release-signed.apk"`
 
