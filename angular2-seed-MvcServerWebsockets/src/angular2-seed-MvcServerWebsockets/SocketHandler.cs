@@ -26,17 +26,16 @@ namespace angular2_seed_MvcServerWebsockets
 
 			while (this.socket.State == WebSocketState.Open)
 			{
-
 				var token = CancellationToken.None;
 				var buffer1 = new ArraySegment<Byte>(new Byte[4096]);
 				var received = await this.socket.ReceiveAsync(buffer1, token);
-				string request = Encoding.UTF8.GetString(buffer1.Array, buffer1.Offset, buffer1.Count);
-				request = request.Replace("\0", "");
+				string requestAsText = Encoding.UTF8.GetString(buffer1.Array, buffer1.Offset, buffer1.Count);
+				requestAsText = requestAsText.Replace("\0", "");
 
 
-				var text = "Svr-" + request;
+				var responseText = "Svr-" + requestAsText;
 				var type = WebSocketMessageType.Text;
-				var data = Encoding.UTF8.GetBytes(text);
+				var data = Encoding.UTF8.GetBytes(responseText);
 				var returnbuffer = new ArraySegment<Byte>(data);
 				await socket.SendAsync(returnbuffer, type, true, token);
 
