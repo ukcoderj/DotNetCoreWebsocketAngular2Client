@@ -1,4 +1,5 @@
-# DotNetCoreWebsocketAngular2Client
+# DotNetCore MVC/ WebSocket Server with Angular2 Client and Ionic2 Client
+
 A simple .NET Core MVC WebSocket project with a simple angular2 websocket client (from angular2-seed). Additional Ionic2 sample added. 
 
 The client is from [Angular2-seed](https://github.com/angular/angular2-seed), which details how to get that project running. 
