@@ -1,0 +1,10 @@
+<h3>Home Component - Goes to echo webservice (see about page for our own mvc service)</h3>
+<p>Welcome to Angular Seed - {{testField}}</p>
+
+<ul *ngFor="let item of messagesList; let i = index" [attr.data-index]="i">
+	<li>{{item}}</li>
+</ul>
+
+<p>Enter info</p>
+<input type="text" [(ngModel)]="singleMessage" />
+<button (click)="sendMessage()">Send</button>

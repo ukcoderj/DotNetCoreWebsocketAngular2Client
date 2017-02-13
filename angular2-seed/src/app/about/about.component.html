@@ -1,0 +1,12 @@
+<h3>About Component - Goes to our own MVC web service</h3>
+<p>This is the about component!</p>
+
+<p>Abooot - {{testField}}</p>
+
+<ul *ngFor="let item of messagesList; let i = index" [attr.data-index]="i">
+	<li>{{item}}</li>
+</ul>
+
+<p>Enter info</p>
+<input type="text" [(ngModel)]="singleMessage" />
+<button (click)="sendMessage()">Send</button>
