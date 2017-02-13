@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h2>Welcome to Ionic Websocket Test!</h2>
+
+  <ul *ngFor="let item of messagesList; let i = index" [attr.data-index]="i">
+    <li>{{item}}</li>
+  </ul>
+
+  <p>Enter info</p>
+  <input type="text" [(ngModel)]="singleMessage" />
+  <button (click)="sendMessage()">Send</button>
+</ion-content>

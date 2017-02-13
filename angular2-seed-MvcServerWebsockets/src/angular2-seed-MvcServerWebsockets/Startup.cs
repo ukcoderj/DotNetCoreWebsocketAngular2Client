@@ -56,7 +56,7 @@ namespace angular2_seed_MvcServerWebsockets
 
    //         app.UseApplicationInsightsExceptionTelemetry();
 
-   //         app.UseMvc();
+            app.UseMvc();
         }
     }
 }
