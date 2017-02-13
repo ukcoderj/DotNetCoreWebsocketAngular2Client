@@ -33,7 +33,7 @@ namespace angular2_seed_MvcServerWebsockets
 				requestAsText = requestAsText.Replace("\0", "");
 
 
-				var responseText = "Svr-" + requestAsText;
+				var responseText = "Server-" + requestAsText;
 				var type = WebSocketMessageType.Text;
 				var data = Encoding.UTF8.GetBytes(responseText);
 				var returnbuffer = new ArraySegment<Byte>(data);
@@ -49,6 +49,11 @@ namespace angular2_seed_MvcServerWebsockets
 
 		static async Task Acceptor(HttpContext hc, Func<Task> n)
 		{
+			// not used, but could do to send messages to specific connections.
+			// Could use a collection lookup
+			var connectionIdentifierCookie = hc.Request.Cookies["my_id_cookie"];
+			//send to a lookup of type [connectionIdentifierCookie, this.socket]
+
 			if (!hc.WebSockets.IsWebSocketRequest)
 				return;
 
