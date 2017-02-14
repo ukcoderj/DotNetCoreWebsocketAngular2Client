@@ -19,9 +19,11 @@ export class AboutComponent {
     var x = localStorage.getItem("test");
     this.testField = x;
 
-    this._websocketServiceMvc.GetInstanceStatus().subscribe((result) => {
+    this._websocketServiceMvc.SetupConnection();
+
+    this._websocketServiceMvc.webSocketMessageEvent.subscribe((message: string) => {
       this._ngZone.run(() => {
-        this.messagesList.push(result);
+        this.messagesList.push(message);
       });
     }); 
   }
