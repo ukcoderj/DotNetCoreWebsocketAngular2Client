@@ -11,11 +11,17 @@ export class WebSocketServiceMvc {
 
 
 	public webSocketMessageEvent: EventEmitter<string>;
+	public webSocketConnectedEvent: EventEmitter<string>;
+	public webSocketClosedEvent: EventEmitter<string>;
+	public webSocketErrorEvent: EventEmitter<string>;
 
 	// try an eventEmitter here to keep retry logic working.
 
 	constructor() {
 		this.webSocketMessageEvent = new EventEmitter<string>();
+		this.webSocketConnectedEvent = new EventEmitter<string>();
+		this.webSocketClosedEvent = new EventEmitter<string>();
+		this.webSocketErrorEvent = new EventEmitter<string>();
 	}
 
 	public sendMessage(text: string) {
@@ -44,15 +50,19 @@ export class WebSocketServiceMvc {
 		var webSocketUrl = "ws://localhost:58809/ws";
 		this.websocket = new WebSocket(webSocketUrl); //dummy echo websocket service
 		this.websocket.onopen = (evt) => {
+			this.webSocketConnectedEvent.emit("connected");
 			var userId = evt;
-			this.websocket.send("connected - ping!!!");
+			this.websocket.send("test ping!!!");
 		};
 
 		this.websocket.onclose = (evt) => {
+			this.webSocketClosedEvent.emit("disconnected");
 			this.RetryConnect();
 		};
 
 		this.websocket.onerror = (evt) => {
+			//maybe use evt.data?
+			this.webSocketErrorEvent.emit("error");
 			// notify of error?
 		};
 

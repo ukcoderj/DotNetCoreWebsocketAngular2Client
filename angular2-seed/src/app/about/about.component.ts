@@ -8,16 +8,15 @@ import { WebSocketServiceMvc } from '../services/websocketMvc.service';
 })
 export class AboutComponent {
 
-  private testField: string;
+  private connectionStatus: string;
     
   public messagesList: string[] = ["item1"];
   public singleMessage: string = '';
 
   constructor(private _websocketServiceMvc: WebSocketServiceMvc, private _ngZone: NgZone){
 
-    localStorage.setItem("test", "about..");
-    var x = localStorage.getItem("test");
-    this.testField = x;
+
+    this.connectionStatus = 'disconnected';
 
     this._websocketServiceMvc.SetupConnection();
 
@@ -26,6 +25,18 @@ export class AboutComponent {
         this.messagesList.push(message);
       });
     }); 
+
+    this._websocketServiceMvc.webSocketConnectedEvent.subscribe((status: string) => {
+      this._ngZone.run(() => {
+        this.connectionStatus = status;
+      });
+    });
+
+    this._websocketServiceMvc.webSocketClosedEvent.subscribe((status: string) => {
+      this._ngZone.run(() => {
+        this.connectionStatus = status;
+      });
+    });
   }
 
   sendMessage(): void {
