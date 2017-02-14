@@ -10,8 +10,8 @@ export class AboutComponent {
 
   private testField: string;
     
-  public messagesList: string[] = ["item1", "item2"];
-  public singleMessage: string = '---';
+  public messagesList: string[] = ["item1"];
+  public singleMessage: string = '';
 
   constructor(private _websocketServiceMvc: WebSocketServiceMvc, private _ngZone: NgZone){
 

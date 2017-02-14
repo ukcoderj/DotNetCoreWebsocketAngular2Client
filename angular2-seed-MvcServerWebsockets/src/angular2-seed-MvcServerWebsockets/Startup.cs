@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using angular2_seed_MvcServerWebsockets.Repository;
 
 namespace angular2_seed_MvcServerWebsockets
 {
@@ -36,8 +37,7 @@ namespace angular2_seed_MvcServerWebsockets
         {
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
-
-            services.AddMvc();
+			services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline

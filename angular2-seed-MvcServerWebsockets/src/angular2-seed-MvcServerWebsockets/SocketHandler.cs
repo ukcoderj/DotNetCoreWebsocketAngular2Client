@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using System;
 using System.Text;
+using angular2_seed_MvcServerWebsockets.Repository;
 
 namespace angular2_seed_MvcServerWebsockets
 {
@@ -13,6 +14,7 @@ namespace angular2_seed_MvcServerWebsockets
 		public const int BufferSize = 4096;
 
 		WebSocket socket;
+
 
 		SocketHandler(WebSocket socket)
 		{
@@ -32,12 +34,33 @@ namespace angular2_seed_MvcServerWebsockets
 				string requestAsText = Encoding.UTF8.GetString(buffer1.Array, buffer1.Offset, buffer1.Count);
 				requestAsText = requestAsText.Replace("\0", "");
 
+				// if you include the text "[all]", the message will go to everyone,
+				// otherwise, only bounce back to me!
+				if (requestAsText.ToLower().Contains("[all]"))
+				{
+					// broadcast (using our repository)
+					var connections = ConnectionsRepository.Instance().ConnectionsDct;
+					foreach (var coKvp in connections)
+					{
+						// single response
+						var responseText = "(A) " + requestAsText.Replace("[all]", "");
+						var type = WebSocketMessageType.Text;
+						var data = Encoding.UTF8.GetBytes(responseText);
+						var returnbuffer = new ArraySegment<Byte>(data);
+						await coKvp.Value.SendAsync(returnbuffer, type, true, token);
+					}
+				}
+				else
+				{
+					// single response (standard websocket)
+					var responseText = "-> " + requestAsText;
+					var type = WebSocketMessageType.Text;
+					var data = Encoding.UTF8.GetBytes(responseText);
+					var returnbuffer = new ArraySegment<Byte>(data);
+					await socket.SendAsync(returnbuffer, type, true, token);
+				}
 
-				var responseText = "Server-" + requestAsText;
-				var type = WebSocketMessageType.Text;
-				var data = Encoding.UTF8.GetBytes(responseText);
-				var returnbuffer = new ArraySegment<Byte>(data);
-				await socket.SendAsync(returnbuffer, type, true, token);
+				
 
 
 				// quick reflector
@@ -58,6 +81,10 @@ namespace angular2_seed_MvcServerWebsockets
 				return;
 
 			var socket = await hc.WebSockets.AcceptWebSocketAsync();
+
+			ConnectionsRepository.Instance().Add(connectionIdentifierCookie, socket);
+
+
 			var h = new SocketHandler(socket);
 			await h.EchoLoop();
 		}
