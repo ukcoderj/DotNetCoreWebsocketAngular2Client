@@ -16,6 +16,7 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { ContactComponent } from './contact/contact.component';
 import { WebSocketService } from './services/websocket.service';
 import { WebSocketServiceMvc } from './services/websocketMvc.service';
+import { FakePostsHttpApiService } from './services/fakePostsHttpApi.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { WebSocketServiceMvc } from './services/websocketMvc.service';
   providers: [
     GithubService,
     WebSocketService,
-    WebSocketServiceMvc
+    WebSocketServiceMvc,
+    FakePostsHttpApiService
   ],
   bootstrap: [ AppComponent ]
 })

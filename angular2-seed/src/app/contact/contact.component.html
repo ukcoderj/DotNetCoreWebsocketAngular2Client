@@ -1,3 +1,23 @@
+<h2>Http Functions</h2>
+
+
+<div>
+  <button class="btn" (click)="getPosts()">Get Posts (output console)</button>
+</div>
+<div>
+  <button class="btn" (click)="getPost2()">Get Post 2 (output console)</button>
+</div>
+<div>
+  <button class="btn" (click)="sendPost()">Send Post (output console)</button>
+</div>
+
+<textarea cols="60" rows="3">{{apiReturnAsString}}</textarea>
+
+<br/>
+<br/>
+
+
+<hr/>
 <h2>Contact Reactive Form</h2>
 
 <form (ngSubmit)="submitForm()" [formGroup]="contactForm" novalidate>
@@ -33,4 +53,3 @@
   </p>
   <p>Submit then open console to see full form.</p>
 </div>
-
