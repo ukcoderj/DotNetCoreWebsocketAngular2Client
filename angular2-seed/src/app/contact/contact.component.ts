@@ -35,7 +35,8 @@ export class ContactComponent implements OnInit {
   getPosts() {
     this.httpService.getPosts().subscribe(posts => {
       this._ngZone.run(() => {
-        this.apiReturnAsString = JSON.stringify(posts.json());
+        var allPosts: Post[] = posts.json();
+        this.apiReturnAsString = JSON.stringify(allPosts);
         console.log(posts);
       });
     });
@@ -44,7 +45,8 @@ export class ContactComponent implements OnInit {
   getPost2() {
     this.httpService.getPostByNumber(2).subscribe(post => {
       this._ngZone.run(() => {
-        this.apiReturnAsString = JSON.stringify(post.json());
+        let tmpPost: Post = post.json();
+        this.apiReturnAsString = JSON.stringify(tmpPost);
         console.log(post);
       });
     });
@@ -52,17 +54,17 @@ export class ContactComponent implements OnInit {
 
   sendPost() {
 
-    let post = new Post('Title', 'Body Text', '2');
+    let newPost = new Post('Title', 'Body Text', '2');
 
-    this.httpService.sendPost(post).subscribe(ret => {
+    this.httpService.sendPost(newPost).subscribe(ret => {
 
       this._ngZone.run(() => {
         // if it's successful
         if (ret.status == 201) {
           var jsonId = ret.json();
-          post.id = jsonId.id;
-          this.apiReturnAsString = post.toPostString();
-          console.log(post);
+          newPost.id = jsonId.id;
+          this.apiReturnAsString = newPost.toPostString();
+          console.log(newPost);
         } else {
           // error state.
           console.log(ret.json());
